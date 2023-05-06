@@ -26,6 +26,8 @@ module.exports = {
         'sm' : "0.482rem",
         'primary' : "0.579rem",
         'lg' : "0.694rem",
+        'xlg' : '0.833rem',
+        'xxlg' : '1rem'
 
       },
       fontFamily : {
