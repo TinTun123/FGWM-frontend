@@ -22,12 +22,13 @@ module.exports = {
         'logo' : '#F9C20F'
       },
       fontSize : {
-        'x-sm' : "0.402rem",
-        'sm' : "0.482rem",
-        'primary' : "0.579rem",
-        'lg' : "0.694rem",
-        'xlg' : '0.833rem',
-        'xxlg' : '1rem'
+        'xx-sm' : '0.512rem',
+        'x-sm' : '0.64rem',
+        'sm' : "0.8rem",
+        'primary' : "1rem",
+        'lg' : "1.25rem",
+        'xlg' : '1.563rem',
+        'xxlg' : '1.953rem'
 
       },
       fontFamily : {
@@ -37,6 +38,10 @@ module.exports = {
         'drop-sha' : '2px 2px 4px rgba(64, 3, 3, 0.25)'
       }
     },
+    screens : {
+      'xxs' : '370px',
+      ...defaultTheme.screens
+    }
   },
   plugins: [
   ],
