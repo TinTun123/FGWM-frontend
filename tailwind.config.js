@@ -35,14 +35,15 @@ module.exports = {
         sans : ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       boxShadow : {
-        'drop-sha' : '2px 2px 4px rgba(64, 3, 3, 0.25)'
+        'drop-sha' : '2px 2px 4px rgba(64, 3, 3, 0.25)',
+        'drop-sha-hover' : '2px 2px 4px rgba(64, 3, 3, 0.6)'
       }
     },
     screens : {
       'xxs' : '370px',
       'tablet' : '600px',
       'lg-table' : '904px',
-      'laptop' : '12040px'
+      'laptop' : '1000px'
     }
   },
   plugins: [
