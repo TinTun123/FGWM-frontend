@@ -780,7 +780,7 @@
 
   <div class="mt-12 h-[40vh] mr-4 relative rounded-r-[10px] laptop:mx-16 laptop:h-[80vh] laptop:rounded-l-[10px]">
       <picture>
-        <source media="(min-width: 1000px)" srcset="./assets/first-protest-february-06.jpg">
+        <source media="(min-width: 1000px)" srcset="../assets/first-protest-february-06.jpg">
         <img src="../assets/first-protest-february-06-resize.jpg" class="w-full h-full rounded-r-[10px] laptop:rounded-l-[10px]" alt="">
       </picture>
       
