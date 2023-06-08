@@ -11,3 +11,15 @@
   .scroll-container::-webkit-scrollbar {
     display: none;
   }
+
+  @font-face {
+    font-family: fa;
+    /* src: url(../assets/font/MyanmarSansPro-Regular.ttf); */
+    src: url(../assets/font/Mm3Web_V3.000.ttf);
+  }
+
+  .fa-font {
+    font-family: fa;
+    word-break: break-all;
+  }
+    

@@ -4,6 +4,9 @@ import ActivitiesComponent from '../components/ActivitiesComponent.vue'
 import AdvocatesComponent from '../components/AdvocatesComponent.vue'
 import BlogComponent from '../components/BlogsComponent.vue'
 import StoryComponent from '../components/StoryComponent.vue'
+
+import AdminLogin from '../views/AdminLogin.vue';
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -35,6 +38,10 @@ const router = createRouter({
       path : '/story',
       name : 'Story',
       component : StoryComponent
+    },
+    {
+      path : '/login',
+      component : AdminLogin
     }
   ]
 })
