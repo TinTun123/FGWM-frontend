@@ -2580,7 +2580,7 @@ items-center
 rounded-[10px] 
 ">
   <p class="
-  text-primary 
+  text-sm 
   leading-[24px] 
   font-medium 
   mb-4 
@@ -2591,14 +2591,15 @@ rounded-[10px]
   border-primary-red-02
   pl-4
   flex-1
-  tablet:flex-none">
+  tablet:flex-none
+  laptop:text-primary">
     We WILL KEEP YOU POSTED!
   </p>
   <div class="form mx-auto flex-1 tablet:w-1/4 max-w-[18.75rem] laptop:w-auto">
 
     <form @submit.prevent="subscribed">
 
-      <input type="mail" name="email" placeholder="Email" class="text-primary 
+      <input type="mail" name="email" placeholder="Email" class="text-sm 
       text-black
       border 
       border-black/60 
@@ -2609,10 +2610,11 @@ rounded-[10px]
       w-full 
       h-full
       placeholder-black/40
-      placeholder:font-bold">
+      placeholder:font-bold
+      laptop:text-primary">
 
       <button class="
-      text-primary
+      text-sm
       text-white
       bg-fist
       font-bold
@@ -2620,7 +2622,8 @@ rounded-[10px]
       py-1
       mb-4
       rounded-[9.78335rem]
-      active:bg-fist/80" type="submit">Subscribe</button>
+      active:bg-fist/80
+      laptop:text-primary" type="submit">Subscribe</button>
 
     </form>
     
@@ -2642,7 +2645,7 @@ laptop:flex
 laptop:itmes-center
 ">
   <div class="text-center z-[100] relative tablet:hidden">
-    <p class="motteo inline-block relative text-white/80 text-lg font-semibold leading-[24px]">
+    <p class="motteo inline-block relative text-white/80 text-primary laptop:text-lg font-semibold leading-[24px]">
       INJURY TO ONE IS <br/>
       INJURT TO ALL 
     </p>
