@@ -266,16 +266,16 @@
     absolute 
     rounded-[10px] 
     left-0 
-    bottom-4
+    bottom-2
     flex 
     items-center
-    py-4
+    tablet:bottom-4
     laptop:rounded-l-[10px]
     laptop:pl-4
     ">
       <div 
-      class="xxs:w-2/3 
-      ml-4 
+      class="xxs:w-full 
+      mx-4 
       z-30 
       w-3/5 
       ">
@@ -2818,7 +2818,7 @@ onMounted(() => {
   width: 1rem;
   height: 1rem;
   position: absolute;
-  bottom: -8px;
+  bottom: 0px;
   right: 0px;
   background-image: url(../assets/end-quote.svg);
   background-position: center;
