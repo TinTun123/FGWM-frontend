@@ -35,8 +35,8 @@ module.exports = {
         sans : ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       boxShadow : {
-        'drop-sha' : '2px 2px 10px rgba(0, 0, 0, 0.1)',
-        'drop-sha-hover' : '2px 2px 10px rgba(0, 0, 0, 0.5)'
+        'drop-sha' : '2px 2px 20px rgba(0, 0, 0, 0.1)',
+        'drop-sha-hover' : '2px 2px 20px rgba(0, 0, 0, 0.1)'
       }
     },
     screens : {

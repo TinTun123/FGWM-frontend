@@ -47,6 +47,10 @@
 import axioClient from '../axios.js';
 import {ref} from 'vue';
 import { useUserStore } from '../sotre/userStore';
+import { useRouter } from 'vue-router';
+
+
+const router = useRouter();
 
 const email = ref('');
 const pwd = ref('');
@@ -64,6 +68,10 @@ function login() {
 
     axioClient.post('/login', formData).then(response => {
         userStore.storeToken(response.data.token);
+        router.push({
+            name : 'home'
+        })
+
     }).catch(error => {
         console.log('before error');
         console.error('Login error', error.response.data);

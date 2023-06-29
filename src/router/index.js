@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeComponent from '../components/HomeComponent.vue'
-import ActivitiesComponent from '../components/ActivitiesComponent.vue'
+import ArticlesComponentVue from '../components/ArticlesComponent.vue';
 import AdvocatesComponent from '../components/AdvocatesComponent.vue'
 import BlogComponent from '../components/BlogsComponent.vue'
 import StoryComponent from '../components/StoryComponent.vue'
-
+import WomenComponent from '../components/WomenComponent.vue'
 import AdminLogin from '../views/AdminLogin.vue';
 
 const router = createRouter({
@@ -16,9 +16,9 @@ const router = createRouter({
       component: HomeComponent
     },
     {
-      path: '/activities',
-      name: 'Activities',
-      component : ActivitiesComponent
+      path: '/articles/:type/:id',
+      name: 'Articles',
+      component : ArticlesComponentVue
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -42,6 +42,10 @@ const router = createRouter({
     {
       path : '/login',
       component : AdminLogin
+    },
+    {
+      path : '/women',
+      component : WomenComponent
     }
   ]
 })

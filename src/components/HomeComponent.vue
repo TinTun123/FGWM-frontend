@@ -1,74 +1,5 @@
 <template>
-
-      <div class="relative aspect-[4/3]  laptop:aspect-auto laptop:bg-black">
-        <div id="cover-grad" class="w-full h-full absolute top-0 z-10">
-        </div>
-
-        <svg class="hidden absolute top-4 left-4 tablet:left-8 laptop:left-16 laptop:top-8 z-40" width="64" height="64" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="8" cy="8" r="8" fill="#F9C20F"/>
-        </svg>
-
-        <picture>
-          <source media="(min-width: 905px)" srcset="../assets/bg_cover.jpg">
-          <source media="(min-width: 600px)" srcset="../assets/bg_cover_800w.jpg">
-          <img class="w-full laptop:w-auto laptop:mx-auto z-0" src="../assets/bg_cover_480.jpg" alt="">
-        </picture>
-    <div  class="
-    bg-primary-red-01/60
-    w-[225px]
-    p-4
-    absolute
-    top-[50%]
-    left-[50%]
-    -translate-x-[50%]
-    -translate-y-[50%] 
-    tablet:w-[304px]
-    tablet:p-8
-    laptop:w-[356px]
-    z-50
-    
-    ">
-
-    <div class="">
-
-      <h3 class="
-      text-primary 
-      tablet:text-lg 
-      laptop:text-xlg 
-      text-secondary-yel-02 
-      text-center 
-      leading-[24px] 
-      tablet:leading-[1.875rem] 
-      font-semibold">
-        FEDERATION OF GENERAL WORKERS MYANMAR
-      </h3>
-
-      <div class="flex items-center justify-center laptop:h-auto mt-[13px]">
-        <router-link to="/Activities">
-        <button class="
-      mx-full
-      text-sm
-      tablet:text-primary
-      font-semibold 
-      text-secondary-yel-02
-      border
-      rounded-[11.95rem] 
-      px-2
-      py-1 
-      border-secondary-yel-02/80
-      active:text-white
-      active:border-primary-red-01/60
-      active:bg-fist/60
-      ">
-
-      Union Activities
-    </button>
-  </router-link>
-      </div>
-    </div>
-      
-    </div>
-  </div>
+  <CoverComponentVue />
 
   <div id="sticky-nav" 
   class="mt-4 
@@ -153,31 +84,6 @@
 
   </div>
 
-
-  <!-- <div 
-  class="mt-12 
-  inline-block 
-  py-1 
-  px-2 
-  tablet:y-2 
-  tablet:px-4 
-  bg-primary-red-01 
-  p-1 
-  laptop:mt-16
-  laptop:w-[1200px]
-  laptop:mx-auto
-  laptop:block
-  laptop:bg-white
-  laptop:border-b-[3px]
-  laptop:border-primary-red-01
-">
-    <div class="flex items-center gap-x-1 tablet:gap-x-2">
-    
-      <h3 class="text-lg tablet:text-xlg text-secondary-yel-02 font-bold whitespace-nowrap laptop:text-primary-red-01">OUR STORY</h3>
-    </div>
-  </div> -->
-
-
   <div 
   class="mr-auto 
   mt-0
@@ -233,30 +139,27 @@
 
   </div>  
 
-
   <div 
-  class="mt-8 
-  mx-4 
-  relative 
-  rounded-[10px]
-  tablet:mx-8
-  lg-table:w-[840px]
-  lg-table:mx-auto
-  laptop:mx-auto
-  laptop:w-1/2">
+    class="mt-8 
+    mx-4 
+    relative 
+    rounded-[10px]
+    tablet:mx-8
+    lg-table:w-[840px]
+    lg-table:mx-auto
+    laptop:mx-auto
+    laptop:w-1/2">
 
     <div 
-    class="w-full 
-    h-full 
-    z-10 
-    first-protest-grad 
-    rounded-[10px] 
-    absolute 
-    top-0
-    bg-gradient-to-tr from-black from-0% via-black/30 via-60% to-black/0">
-
+      class="w-full 
+      h-full 
+      z-10 
+      first-protest-grad 
+      rounded-[10px] 
+      absolute 
+      top-0
+      bg-gradient-to-tr from-black from-0% via-black/30 via-60% to-black/0">
     </div>
-
 
     <div class="aspect-[1.33]">
       <img src="../assets/cover.jpg" class="w-full h-full rounded-[10px]" alt="">
@@ -341,14 +244,15 @@
     shadow-drop-sha
     group
     tablet:col-span-1
-    tablet:row-span-2
     tablet:w-auto
-    tablet:h-[412px]
     rounded-[10px]
     laptop:hover:shadow-drop-sha-hover
     laptop:transition-shadow
     "
-    @click="navigate('Activities')">
+    v-for="(protest, index) in protestImages"
+    :key="index"
+    @click="navigate('Articles',protest.id, 'protest')"
+    :class="[protest.isProtrait ? 'tablet:row-span-2' : 'tablet:row-span-1']">
 
     <div 
     class="
@@ -360,7 +264,7 @@
     bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
     </div>
 
-      <img src="../assets/18_5_23_p_267w.jpg" class="rounded-[10px] h-full w-full "  alt="">
+      <img :src="protest.url"  class="rounded-[10px] h-full w-full "  alt="">
       <div class="
       absolute 
       w-full
@@ -384,7 +288,7 @@
             font-bold
             ">
               <span class="mt-auto align-top">
-                18 May 2013
+                {{ protest.date }}
               </span>
             </div>
 
@@ -409,7 +313,7 @@
           mb-1
           fa-font
           line-clamp-2" lang="my">
-          ပြည်သူရှိသရွေ့ အမေစုရှိတယ်
+          {{ protest.title }}
         </h2>
 
         </div>
@@ -431,366 +335,7 @@
 
     </div>
 
-    <div class=" 
-    relative  
-    w-[267px]
-    h-[202px]
-    flex-none 
-    rounded-[10px] 
-    shadow-drop-sha
-    group
-    tablet:col-span-1
-    tablet:w-auto
-    laptop:hover:shadow-drop-sha-hover
-    laptop:transition-shadow"
-    @click="navigate('Activities')">
-      <img src="../assets/icu.jpg" class="rounded-[10px] h-full w-full "  alt="">
-      
-      <div 
-    class="
-    w-full 
-    h-full 
-    absolute 
-    top-0
-    rounded-[10px] 
-    bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-
-    </div>
-
-
-      <div class="
-      absolute 
-      h-full
-      px-2
-      pb-2 
-      bottom-0 
-      rounded-[10px] 
-      flex 
-      items-end 
-      left-0
-      ">
-
-      <div>
-
-          <div class="flex gap-x-1 items-center">
-
-            <div 
-            class="text-x-sm 
-            tablet:text-sm 
-            laptop:text-xx-sm 
-            text-white/80
-            font-bold
-            ">
-              <span class="mt-auto align-top">
-                17 February 2020
-              </span>
-            </div>
-          </div>
-
-          <h2 
-          class="text-sm 
-          tablet:text-sm 
-          text-white 
-          laptop:text-primary
-          mb-1
-          fa-font
-          line-clamp-2
-          pb-[1px]
-          ">
-          မြန်မာနိုင်ငံ အထွေထွေအလုပ်သမားသမဂ္ဂများအဖွဲချုပ် FGWM အဖွဲရဲ့ အပြည်ပြည်ဆိုင်ရာ အလုပ်သမားရေးရာ အဖွဲ ILO ရုံးရှေ့မှ ဗဟိုဘဏ် ရှေ့ သိုချီတက် ဆန္ဒဖော်ထုတ် မှု အားတွေ့ရစဥ်။
-        </h2>
-        </div>
-      </div>
-
-      <div class="absolute 
-      top-4 
-      right-0 
-      text-sm
-      tablet:text-primary 
-      rounded-l-[16.326px] 
-      font-medium 
-      text-secondary-yel-02 
-      bg-primary-red-01 
-      px-2 
-      py-1
-      group-active:bg-secondary-yel-01 group-active:text-primary-red-01">
-        Read more
-      </div>
-
-    </div>    
-    
-    <div class=" 
-    relative  
-    w-[267px]
-    h-[202px]
-    flex-none 
-    rounded-[10px] 
-    shadow-drop-sha
-    group
-    tablet:col-span-1
-    tablet:w-auto
-    laptop:hover:shadow-drop-sha-hover
-    laptop:transition-shadow"
-    @click="navigate('Activities')">
-      <img src="../assets/february_5.jpg" class="rounded-[10px] h-full w-full "  alt="">
-      <div 
-      class="
-      w-full 
-      h-full 
-      absolute 
-      top-0
-      rounded-[10px] 
-      bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-
-      </div>
-
-      <div class="
-      absolute 
-      w-full
-      px-2
-      pb-2 
-      bottom-0 
-      rounded-[10px] 
-      flex 
-      items-end 
-      left-0
-
-      ">
-        <div class="w-full">
-
-          <div class="flex gap-x-1 items-center">
-
-            <div 
-            class="text-x-sm 
-            tablet:text-sm 
-            laptop:text-xx-sm 
-            text-white/80
-            font-bold
-            ">
-
-              <span class="mt-auto align-top">
-                5 February 2023
-              </span>
-            
-            </div>
-
-          </div>
-
-          <h2 
-          class="text-sm 
-          tablet:text-sm 
-          text-white 
-          laptop:text-primary
-          mb-1
-          pb-[1px]
-          fa-font
-          line-clamp-2">
-          ပြည်သူ့နွေဦးတော်လှန်ရေး ၂ နှစ်ပြည့်တွင် မြန်မာနိုင်ငံအထွေထွေအလုပ်သမား သမဂ္ဂများအဖွဲချုပ်၊ Federation of General Workers, Myanmar အဖွဲဝင်အလုပ်သမားပြည်သူများ၏ စစ်အာဏာရှင်အမြစ်ဖြတ်ရေးလှုပ်ရှားမှု
-        </h2>
-
-        </div>
-      </div>
-      
-
-      <div class="absolute 
-      top-4 
-      right-0 
-      text-sm
-      tablet:text-primary 
-      rounded-l-[16.326px] 
-      font-medium 
-      text-secondary-yel-02 
-      bg-primary-red-01 
-      px-2 
-      py-1
-      group-active:bg-secondary-yel-01 group-active:text-primary-red-01">
-        Read more
-      </div>
-
-    </div>
-
-    <div class=" 
-    relative  
-    w-[267px]
-    h-[202px]
-    flex-none 
-    rounded-[10px] 
-    shadow-drop-sha
-    group
-    tablet:col-span-1
-    tablet:w-auto
-    laptop:hover:shadow-drop-sha-hover
-    laptop:transition-shadow"
-    @click="navigate('Activities')">
-      <img src="../assets/pro_02.jpg" class="rounded-[10px] h-full w-full "  alt="">
-      
-      <div 
-      class="
-      w-full 
-      h-full 
-      absolute 
-      top-0
-      rounded-[10px] 
-      bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-
-      </div>
-
-      <div class="
-      absolute 
-      w-full
-      px-2
-      pb-2 
-      bottom-0 
-      rounded-[10px] 
-      flex 
-      items-end 
-      left-0
-
-      ">
-        <div class="w-full">
-
-          <div class="flex gap-x-1 items-center">
-
-            <div 
-            class="text-x-sm 
-            tablet:text-sm 
-            laptop:text-xx-sm 
-            text-white/80
-            font-bold
-            ">
-
-              <span class="mt-auto align-top">
-                7 July 2022
-              </span>
-            
-            </div>
-
-          </div>
-
-          <h2 
-          class="text-sm 
-          tablet:text-sm 
-          text-white 
-          laptop:text-primary
-          mb-1
-          pb-[1px]
-          fa-font
-          line-clamp-2">
-          မင်္ဂလာဒုံ စက်မှုဇုန် JW (ADK) အထည်ချုပ်စက်ရုံအလုပ်သမားများ ယနေ့စုပေါင်းတောင်းဆိုချက် ၁၀ ချက်
-        </h2>
-
-        </div>
-      </div>
-
-      <div class="absolute 
-      top-4 
-      right-0 
-      text-sm
-      tablet:text-primary 
-      rounded-l-[16.326px] 
-      font-medium 
-      text-secondary-yel-02 
-      bg-primary-red-01 
-      px-2 
-      py-1
-      group-active:bg-secondary-yel-01 group-active:text-primary-red-01">
-        Read more
-      </div>
-
-    </div>
-
-    <div class=" 
-    relative  
-    w-[267px]
-    h-[202px]
-    flex-none 
-    rounded-[10px] 
-    shadow-drop-sha
-    group
-    tablet:col-span-1
-    tablet:w-auto
-    laptop:hover:shadow-drop-sha-hover
-    laptop:transition-shadow"
-    @click="navigate('Activities')">
-      <img src="../assets/pro_02.jpg" class="rounded-[10px] h-full w-full "  alt="">
-      
-      <div 
-      class="
-      w-full 
-      h-full 
-      absolute 
-      top-0
-      rounded-[10px] 
-      bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-
-      </div>
-
-      <div class="
-      absolute 
-      w-full
-      px-2
-      pb-2 
-      bottom-0 
-      rounded-[10px] 
-      flex 
-      items-end 
-      left-0
-
-      ">
-        <div class="w-full">
-
-          <div class="flex gap-x-1 items-center">
-
-            <div 
-            class="text-x-sm 
-            tablet:text-sm 
-            laptop:text-xx-sm 
-            text-white/80
-            font-bold
-            ">
-
-              <span class="mt-auto align-top">
-                7 July 2022
-              </span>
-            
-            </div>
-
-          </div>
-
-          <h2 
-          class="text-sm 
-          tablet:text-sm 
-          text-white 
-          laptop:text-primary
-          mb-1
-          pb-[1px]
-          fa-font
-          line-clamp-2">
-          မင်္ဂလာဒုံ စက်မှုဇုန် JW (ADK) အထည်ချုပ်စက်ရုံအလုပ်သမားများ ယနေ့စုပေါင်းတောင်းဆိုချက် ၁၀ ချက်
-        </h2>
-
-        </div>
-      </div>
-
-      <div class="absolute 
-      top-4 
-      right-0 
-      text-sm
-      tablet:text-primary 
-      rounded-l-[16.326px] 
-      font-medium 
-      text-secondary-yel-02 
-      bg-primary-red-01 
-      px-2 
-      py-1
-      group-active:bg-secondary-yel-01 group-active:text-primary-red-01">
-        Read more
-      </div>
-
-    </div>
-
   </div>
-
 
 
   <div class="mt-12 inline-block py-1 px-2 tablet:py-2 tablet:px-4 bg-primary-red-01 laptop:mt-16">
@@ -846,9 +391,12 @@
     tablet:w-auto
     laptop:hover:shadow-drop-sha-hover
     laptop:transition-shadow"
-    @click="navigate('Activities')">
 
-    <div 
+    v-for="(article, index) in activitiesImages" :key="index"
+    @click="navigate('Articles', article.id, 'activities')"
+    :class="[article.isProtrait ? 'tablet:row-span-2' : 'tablet:row-span-1']">
+
+    <div
     class="
     w-full 
     h-full 
@@ -856,12 +404,8 @@
     top-0
     rounded-[10px] 
     bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-
     </div>
-
-
-      <img src="../assets/jun03_campagin.jpg" class="rounded-[10px] h-full w-full "  alt="">
-      
+      <img :src="article.url" class="rounded-[10px] h-full w-full"  alt="">
       <div class="
       absolute 
       h-full
@@ -887,7 +431,7 @@
             font-bold
             ">
               <span class="mt-auto align-top">
-                3 Jun 2023
+                {{ article.date }}
               </span>
             </div>
           </div>
@@ -905,553 +449,7 @@
           line-clamp-2
           "
           lang="my">
-          ILO ညီလာခံတွင်  NUG ကိုယ်စားလှယ်အဖွဲကို လက်ခံပေးဖို  မြန်မာ့ဒီမိုကရေစီ နှင့် အလုပ်သမားအခွင့်အရေး (အိုင်အယ်အို)အသိအမှတ်ပြုပေး စာသားများကိုင်ဆောင်ပြီး မြန်မာနိုင်ငံအထွေထွေအလုပ်သမား သမဂ္ဂများအဖွဲချုပ်  သမဂ္ဂခေါင်းဆောင်များမှ   အွန်လိုင်း ကမ်ပိန်းပြုလုပ်ပြီးတောင်းဆိုနေကြသည်
-        </h2>
-
-        </div>
-      </div>
-
-      <div class="absolute 
-      top-4 
-      right-0 
-      text-sm
-      tablet:text-primary 
-      rounded-l-[16.326px] 
-      font-medium 
-      text-secondary-yel-02 
-      bg-primary-red-01 
-      px-2 
-      py-1
-      group-active:bg-secondary-yel-01 group-active:text-primary-red-01">
-        Read more
-      </div>
-
-    </div>
-
-    <div class=" 
-    relative  
-    w-[267px]
-    h-[202px]
-    flex-none 
-    rounded-[10px] 
-    shadow-drop-sha
-    group
-    tablet:col-span-1
-    tablet:row-span-2
-    tablet:w-auto
-    tablet:h-[412px]
-    laptop:hover:shadow-drop-sha-hover
-    laptop:transition-shadow"
-    @click="navigate('Activities')">
-
-    <div 
-    class="
-    w-full 
-    h-full 
-    absolute 
-    top-0
-    rounded-[10px] 
-    bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-
-    </div>
-
-
-      <img src="../assets/campagin03.jpeg" class="rounded-[10px] h-full w-full "  alt="">
-      
-      <div class="
-      absolute 
-      h-full
-      px-2
-      pb-2 
-      bottom-0 
-      rounded-[10px] 
-      flex 
-      items-end 
-      left-0
-      ">
-        <div>
-
-        <div class="flex gap-x-1 items-center">
-
-          <div class="flex gap-x-1 items-center">
-
-            <div 
-            class="text-x-sm 
-            tablet:text-sm 
-            laptop:text-xx-sm 
-            text-white/80
-            font-bold
-            ">
-              <span class="mt-auto align-top">
-                5 August 2023
-              </span>
-            </div>
-          </div>
-
-        </div>
-
-        <h2 
-          class="text-sm 
-          tablet:text-sm 
-          text-white 
-          laptop:text-primary
-          mb-1
-          fa-font
-          pb-[1px]
-          line-clamp-2
-          "
-          lang="my">
-        အမျိုးသမီးအလုပ်သမားထုသည်လည်း လူသားစစ်စစ်ဧကန်ဖြစ်သည်
-        </h2>
-
-        </div>
-      </div>
-
-      <div class="absolute 
-      top-4 
-      right-0 
-      text-sm
-      tablet:text-primary 
-      rounded-l-[16.326px] 
-      font-medium 
-      text-secondary-yel-02 
-      bg-primary-red-01 
-      px-2 
-      py-1
-      group-active:bg-secondary-yel-01 group-active:text-primary-red-01">
-        Read more
-      </div>
-
-    </div>
-
-    <div class=" 
-    relative
-    flex-none
-    w-[267px]
-    h-[202px] 
-    shadow-drop-sha
-    group
-    tablet:col-span-1
-    tablet:w-auto
-    rounded-[10px]
-    laptop:hover:shadow-drop-sha-hover
-    laptop:transition-shadow
-    "
-    @click="navigate('Activities')">
-
-    <div 
-    class="
-    w-full 
-    h-full 
-    absolute 
-    top-0
-    rounded-[10px] 
-    bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-    </div>
-
-      <img src="../assets/protest_06.jpg" class="rounded-[10px] h-full w-full "  alt="">
-      <div class="
-      absolute 
-      w-full
-      px-2
-      pb-2 
-      bottom-0 
-      flex 
-      items-end 
-      left-0
-    rounded-[10px]
-      ">
-        <div class="w-full">
-
-          <div class="flex gap-x-1 items-center">
-
-            <div 
-            class="text-x-sm 
-            tablet:text-sm 
-            laptop:text-xx-sm 
-            text-white/80
-            font-bold
-            ">
-              <span class="mt-auto align-top">
-                22 August 2022
-              </span>
-            </div>
-
-          </div>
-
-          <h2 
-          class="text-sm 
-          tablet:text-sm 
-          text-white 
-          laptop:text-primary
-          mb-1
-          fa-font
-          line-clamp-2" lang="my">
-          ဘယ်(/)မျဥ်းစောင်းထိထိ၊ ငါတိုနဲ့ငြိတာပဲ
-        </h2>
-
-        </div>
-      </div>
-
-      <div class="absolute 
-      top-4 
-      right-0 
-      text-sm
-      tablet:text-primary 
-      rounded-l-[16.326px] 
-      font-medium 
-      text-secondary-yel-02 
-      bg-primary-red-01 
-      px-2 
-      py-1
-      group-active:bg-secondary-yel-01 group-active:text-primary-red-01">
-        Read more
-      </div>
-
-    </div>
-
-    <div class=" 
-    relative  
-    w-[267px]
-    h-[202px]
-    flex-none 
-    rounded-[10px] 
-    shadow-drop-sha
-    group
-    tablet:col-span-1
-    tablet:w-auto
-    laptop:hover:shadow-drop-sha-hover
-    laptop:transition-shadow"
-    @click="navigate('Activities')">
-
-    <div 
-    class="
-    w-full 
-    h-full 
-    absolute 
-    top-0
-    rounded-[10px] 
-    bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-
-    </div>
-
-
-      <img src="../assets/woman_day.jpg" class="rounded-[10px] h-full w-full "  alt="">
-      
-      <div class="
-      absolute 
-      h-full
-      px-2
-      pb-2 
-      bottom-0 
-      rounded-[10px] 
-      flex 
-      items-end 
-      left-0
-      ">
-        <div>
-
-          <div class="flex gap-x-1 items-center">
-
-            <div class="flex gap-x-1 items-center">
-
-              <div 
-              class="text-x-sm 
-              tablet:text-sm 
-              laptop:text-xx-sm 
-              text-white/80
-              font-bold
-              ">
-                <span class="mt-auto align-top">
-                  18 May 2013
-                </span>
-              </div>
-            </div>
-
-          </div>
-
-          <h2 
-          class="text-sm 
-          tablet:text-sm 
-          text-white 
-          laptop:text-primary
-          mb-1
-          fa-font
-          pb-[1px]
-          line-clamp-2
-          "
-          lang="my">
-          ၁၃၃ ကြိမ်မြောက် ကမ္ဘာ့အလုပ်သမားနေ့ (မေးဒေး)နေ့မှာ ‘ဖူလုံသောလုပ်ခလစာ၊ ကောင်းမွန်သော လုပ်ငန်းခွင်နှင့် ဖက်ဒရယ်ဒီမိုကရေစီ ပြည်ထောင်စုဆီသို’ ဆိုတဲ့ ဆောင်ပုဒ်ကို ဆွဲကိုင်ရင်း မြန်မာပြည်ဒီမိုကရေစီရေးမှာ ကျရာအခန်းကဏ္ဍကနေပါဝင်နေတဲ့ မြန်မာနိုင်ငံအထွေထွေအလုပ်သမားသမဂ္ဂများ အဖွဲချုပ် FGWM သည် မြေပြင်တွင် မေဒေးနေ့ ဂုဏ်ပြုသည့် အခမ်းအနား ပြုလုပ်ခဲ့ပါသည်။
-        </h2>
-
-
-
-        </div>
-      </div>
-
-      <div class="absolute 
-      top-4 
-      right-0 
-      text-sm
-      tablet:text-primary 
-      rounded-l-[16.326px] 
-      font-medium 
-      text-secondary-yel-02 
-      bg-primary-red-01 
-      px-2 
-      py-1
-      group-active:bg-secondary-yel-01 group-active:text-primary-red-01">
-        Read more
-      </div>
-
-    </div>
-
-    <div class=" 
-    relative  
-    w-[267px]
-    h-[202px]
-    flex-none 
-    rounded-[10px] 
-    shadow-drop-sha
-    group
-    tablet:col-span-1
-    tablet:w-auto
-    laptop:hover:shadow-drop-sha-hover
-    laptop:transition-shadow"
-    @click="navigate('Activities')">
-      <img src="../assets/campagin02.jpg" class="rounded-[10px] h-full w-full "  alt="">
-      
-      <div 
-    class="
-    w-full 
-    h-full 
-    absolute 
-    top-0
-    rounded-[10px] 
-    bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-
-    </div>
-
-
-      <div class="
-      absolute 
-      h-full
-      px-2
-      pb-2 
-      bottom-0 
-      rounded-[10px] 
-      flex 
-      items-end 
-      left-0
-      ">
-
-      <div>
-
-        <div class="flex gap-x-1 items-center">
-
-          <div 
-          class="text-x-sm 
-          tablet:text-sm 
-          laptop:text-xx-sm 
-          text-white/80
-          font-bold
-          ">
-            <span class="mt-auto align-top">
-              7 July 2022
-            </span>
-          </div>
-        </div>
-        <h2 
-          class="text-sm 
-          tablet:text-sm 
-          text-white 
-          laptop:text-primary
-          mb-1
-          fa-font
-          line-clamp-2
-          pb-[1px]
-          ">
-          နိုင်ငံရေးအကျဉ်းသားများအတွက် တရားမျှတမှုနှင့် ထောင်တွင်း၌ တရားမဲ့ သတ်ဖြတ်မှုများ ရပ်တန့်နိုင်ရေးတိုအတွက်နိုင်ငံတကာကို တောင်းဆိုရန် ဓာတ်ပုံကမ်ပိန်း တစ်ခုကို GMSR- Global Myanmar Spring Revolution နှင့် General Strike Coordination Body- GSCBတို ပူးပေါင်း၍ စီစဉ်သွားမည် ဖြစ်ပါသဖြင့် ပူးပေါင်းပါဝင်နိုင်မည်ဖြစ်သည်။
-        </h2>
-        </div>
-      </div>
-
-      <div class="absolute 
-      top-4 
-      right-0 
-      text-sm
-      tablet:text-primary 
-      rounded-l-[16.326px] 
-      font-medium 
-      text-secondary-yel-02 
-      bg-primary-red-01 
-      px-2 
-      py-1
-      group-active:bg-secondary-yel-01 group-active:text-primary-red-01">
-        Read more
-      </div>
-
-    </div>    
-    
-    <div class=" 
-    relative  
-    w-[267px]
-    h-[202px]
-    flex-none 
-    rounded-[10px] 
-    shadow-drop-sha
-    group
-    tablet:col-span-1
-    tablet:w-auto
-    laptop:hover:shadow-drop-sha-hover
-    laptop:transition-shadow"
-    @click="navigate('Activities')">
-      <img src="../assets/us_forigen_affire.jpg" class="rounded-[10px] h-full w-full "  alt="">
-      <div 
-      class="
-      w-full 
-      h-full 
-      absolute 
-      top-0
-      rounded-[10px] 
-      bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-
-      </div>
-
-      <div class="
-      absolute 
-      w-full
-      px-2
-      pb-2 
-      bottom-0 
-      rounded-[10px] 
-      flex 
-      items-end 
-      left-0
-
-      ">
-        <div class="w-full">
-
-          <div class="flex gap-x-1 items-center">
-
-            <div 
-            class="text-x-sm 
-            tablet:text-sm 
-            laptop:text-xx-sm 
-            text-white/80
-            font-bold
-            ">
-
-              <span class="mt-auto align-top">
-                5 February 2023
-              </span>
-
-            </div>
-
-            </div>
-
-          <h2 
-          class="text-sm 
-          tablet:text-sm 
-          text-white 
-          laptop:text-primary
-          mb-1
-          pb-[1px]
-          fa-font
-          line-clamp-2">
-          Women’s  Committee -FGWM  နှင့် Burmese Women’s Union-BWU တို  ပူးပေါင်း၍ကျင်းပပြုလုပ်ခဲ့သော စိတ်ကျန်းမာရေးနှင့် စိတ်ပိုင်းဆိုင်ရာလူမှုရေးပံ့ပိုးမှ
-        </h2>
-
-
-
-        </div>
-      </div>
-      
-
-      <div class="absolute 
-      top-4 
-      right-0 
-      text-sm
-      tablet:text-primary 
-      rounded-l-[16.326px] 
-      font-medium 
-      text-secondary-yel-02 
-      bg-primary-red-01 
-      px-2 
-      py-1
-      group-active:bg-secondary-yel-01 group-active:text-primary-red-01">
-        Read more
-      </div>
-
-    </div>
-
-    <div class=" 
-    relative  
-    w-[267px]
-    h-[202px]
-    flex-none 
-    rounded-[10px] 
-    shadow-drop-sha
-    group
-    tablet:col-span-1
-    tablet:w-auto
-    laptop:hover:shadow-drop-sha-hover
-    laptop:transition-shadow"
-    @click="navigate('Activities')">
-      <img src="../assets/ILO_refuse_campagin01.jpg" class="rounded-[10px] h-full w-full "  alt="">
-      
-      <div 
-      class="
-      w-full 
-      h-full 
-      absolute 
-      top-0
-      rounded-[10px] 
-      bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 from-0% to-black/0">
-
-      </div>
-
-      <div class="
-      absolute 
-      w-full
-      px-2
-      pb-2 
-      bottom-0 
-      rounded-[10px] 
-      flex 
-      items-end 
-      left-0
-
-      ">
-        <div class="w-full">
-          <div class="flex gap-x-1 items-center">
-
-            <div 
-            class="text-x-sm 
-            tablet:text-sm 
-            laptop:text-xx-sm 
-            text-white/80
-            font-bold
-            ">
-
-              <span class="mt-auto align-top">
-                21 May 2023
-              </span>
-
-            </div>
-
-            </div>
-          <h2 
-          class="text-sm 
-          tablet:text-sm 
-          text-white 
-          laptop:text-primary
-          mb-1
-          pb-[1px]
-          fa-font
-          line-clamp-2">
-          The military council is not allowed to 
-          attend the ILO conference at all
+          {{ article.title }}
         </h2>
 
         </div>
@@ -1529,7 +527,9 @@
     tablet:w-auto
     laptop:hover:shadow-drop-sha-hover
     laptop:transition-shadow"
-    @click="navigate('Activities')">
+    v-for="(article, index) in articlesImages" :key="index"
+    @click="navigate('Articles', article.id, 'articles')"
+    :class="[article.isProtrait ? 'tablet:row-span-2 tablet:h-[404px]' : 'tablet:row-span-1']">
 
     <div 
     class="
@@ -1543,7 +543,7 @@
     </div>
 
 
-      <img src="../assets/cdm-teacher.jpg" class="rounded-[10px] h-full w-full"  alt="">
+      <img :src="article.url" class="rounded-[10px] h-full w-full"  alt="">
       
       <div class="
       absolute 
@@ -1570,7 +570,7 @@
             font-bold
             ">
               <span class="mt-auto align-top">
-                24 May 2023
+                {{article.date}}
               </span>
             </div>
           </div>
@@ -1588,7 +588,7 @@
           line-clamp-2
           "
           lang="my">
-          အမျိုးသမီးကော်မတီဝင်နိုင်ငံဝန်ထမ်း CDM ဆရာမများ၏ကြုံတွေ့နေရသောအခက်အခဲနှင့်ရင်တွင်းစကားသံ
+          {{ article.title }}
         </h2>
 
         </div>
@@ -1611,7 +611,7 @@
 
     </div>
 
-    <div class=" 
+    <!-- <div class=" 
     relative  
     w-[267px]
     h-[202px]
@@ -2159,7 +1159,7 @@
         Read more
       </div>
 
-    </div>
+    </div> -->
 
   </div>
 
@@ -2208,16 +1208,29 @@
     ">
         <div v-for="(statement, i) in statementStore.statement" :key="i" class="flex-none">
           <div 
-          class="text-sm 
-          text-primary-red-02 
-          font-bold
+          class="
           border-l
           border-primary-red-02
-          pl-4">
-            Date - {{ statement.date }}
+          pl-4
+          flex justify-between items-center">
+
+            <span class="text-sm 
+          text-primary-red-02 
+            font-bold">
+              Date - {{ statement.date }}
+            </span>
+            
+            <div v-if="userStore.token" @click="deleteStatement(statement.id)" class="w-4 h-4 group">
+              <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="fill-black/40 group-hover:fill-black/60 group-active:fill-black/40" d="M6.08929 1.6125L5.41071 2.5H10.5893L9.91071 1.6125C9.85714 1.54375 9.76786 1.5 9.67143 1.5H6.325C6.22857 1.5 6.13929 1.54062 6.08571 1.6125H6.08929ZM11.3393 0.78125L12.65 2.5H13.1429H14.8571H15.1429C15.6179 2.5 16 2.83437 16 3.25C16 3.66563 15.6179 4 15.1429 4H14.8571V13.5C14.8571 14.8813 13.5786 16 12 16H4C2.42143 16 1.14286 14.8813 1.14286 13.5V4H0.857143C0.382143 4 0 3.66563 0 3.25C0 2.83437 0.382143 2.5 0.857143 2.5H1.14286H2.85714H3.35L4.66071 0.778125C5.03214 0.29375 5.65714 0 6.325 0H9.67143C10.3393 0 10.9643 0.29375 11.3357 0.778125L11.3393 0.78125ZM2.85714 4V13.5C2.85714 14.0531 3.36786 14.5 4 14.5H12C12.6321 14.5 13.1429 14.0531 13.1429 13.5V4H2.85714ZM5.71429 6V12.5C5.71429 12.775 5.45714 13 5.14286 13C4.82857 13 4.57143 12.775 4.57143 12.5V6C4.57143 5.725 4.82857 5.5 5.14286 5.5C5.45714 5.5 5.71429 5.725 5.71429 6ZM8.57143 6V12.5C8.57143 12.775 8.31429 13 8 13C7.68571 13 7.42857 12.775 7.42857 12.5V6C7.42857 5.725 7.68571 5.5 8 5.5C8.31429 5.5 8.57143 5.725 8.57143 6ZM11.4286 6V12.5C11.4286 12.775 11.1714 13 10.8571 13C10.5429 13 10.2857 12.775 10.2857 12.5V6C10.2857 5.725 10.5429 5.5 10.8571 5.5C11.1714 5.5 11.4286 5.725 11.4286 6Z"/>
+              </svg>
+            </div>
           </div>
 
           <div class="w-[343px] h-[433px] rounded-[10px] shadow-drop-sha mt-6">
+            
+
+
             <img :src="statement.img_url" class="w-full h-full rounded-[10px]" alt="">
           </div>
         </div>
@@ -2229,15 +1242,14 @@
   class="flex 
   gap-x-4 
   justify-end
-  laptop:w-auto
-  laptop:mx-[200px]
   lg-laptop:w-[1020px]
   lg-laptop:mx-auto
   mt-6
   mx-4
   tablet:mx-8
   lg-table:w-[840px]
-  lg-table:mx-auto ">
+  lg-table:mx-auto
+  laptop:w-[1200px]">
     <button 
     @click="statementStore.prePage" 
     :disabled="!statementStore.preUrl" 
@@ -2267,8 +1279,150 @@
         Next
       </span>
     </button>
+
+    <button
+    v-if="userStore.token"
+    @click="open = true"  
+    class="px-3 
+    py-1 
+    bg-white 
+    rounded-[16px] 
+    border 
+    border-black/40 
+    active:bg-black/20">
+      <span>
+        Add statement
+      </span>
+    </button>
   </div>
 
+
+              <Teleport to="body">
+                <transition name="modalState">
+                    <div v-if="open" class="modalState-mask">
+                        <div class="modalState-container relative rounded-[10px] overflow-visible">
+                            <button @click="closeModel" class="absolute left-[-16px] top-[-16px] group" type="button">
+                              <div class="w-8 h-8">
+                                <svg class="w-full h-full" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.2376 11.2624L8.5008 9ZM10.7632 6.7376L8.5008 9ZM8.5008 9L6.2376 6.7376ZM8.5008 9L10.7632 11.2624ZM8.5 17C12.9184 17 16.5 13.4184 16.5 9C16.5 4.5816 12.9184 1 8.5 1C4.0816 1 0.5 4.5816 0.5 9C0.5 13.4184 4.0816 17 8.5 17Z" class="fill-white/80 group-hover:fill-white/40 group-active:fill-white/60"/>
+                                  <path d="M6.2376 11.2624L8.5008 9M8.5008 9L10.7632 6.7376M8.5008 9L6.2376 6.7376M8.5008 9L10.7632 11.2624M8.5 17C12.9184 17 16.5 13.4184 16.5 9C16.5 4.5816 12.9184 1 8.5 1C4.0816 1 0.5 4.5816 0.5 9C0.5 13.4184 4.0816 17 8.5 17Z" class="stroke-black/60" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                              </div>
+                            </button>
+
+                            <div class="flex items-center gap-x-2 overflow-visible">
+                              <!-- <ImageInput :coverStr="coverStr" class="flex-none w-[300px] aspect-[0.8]" @updateImg="updateStatementImg"></ImageInput> -->
+                              
+                              <div class="flex-none flex items-center justify-center w-[150px] h-[250px] tablet:w-[250px] tablet:h-[350px]">
+                                <img v-if="currentThumb" :src="currentThumb" class="w-full h-full" alt="">
+
+                                <h3 v-if="!currentThumb" class="text-center">Add statement Image.</h3>
+
+                              </div>
+
+                              <div 
+                              class="flex flex-col 
+                              gap-y-2 
+                              h-[375px] 
+                              overflow-x-visible overflow-y-scroll 
+                              scroll-container">
+
+                                <div v-for="(thumb, index) in thumbnails" :key="index" 
+                                class="w-[100px] 
+                                aspect-[0.8] 
+                                cursor-pointer
+                                border
+                                relative
+                                overflow-visible
+                                "
+                                :class="[id === index ? 'border-black/40' : 'border-black/20']"
+                                @click="getCurrentThumbnail(index)">
+                        
+                                <div @click.stop="removeStateThumb(index)" class="w-8 h-8 group absolute top-0 right-0">
+                                    <svg class="w-full h-full" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path class="fill-black/40 group-hover:fill-black/20 group-active:fill-black/60" d="M6.2376 11.2624L8.5008 9ZM10.7632 6.7376L8.5008 9ZM8.5008 9L6.2376 6.7376ZM8.5008 9L10.7632 11.2624ZM8.5 17C12.9184 17 16.5 13.4184 16.5 9C16.5 4.5816 12.9184 1 8.5 1C4.0816 1 0.5 4.5816 0.5 9C0.5 13.4184 4.0816 17 8.5 17Z"/>
+                                        <path d="M6.2376 11.2624L8.5008 9M8.5008 9L10.7632 6.7376M8.5008 9L6.2376 6.7376M8.5008 9L10.7632 11.2624M8.5 17C12.9184 17 16.5 13.4184 16.5 9C16.5 4.5816 12.9184 1 8.5 1C4.0816 1 0.5 4.5816 0.5 9C0.5 13.4184 4.0816 17 8.5 17Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+
+                                  <img :src="thumb" class="w-full h-full" alt="">
+
+                                </div>
+                                <div v-if="!currentThumb"
+                                class="w-[100px]
+                                
+                                aspect-[0.8]
+                                bg-black/20"></div>
+                                
+
+                              </div>
+                              <input @input="onSelectFile" ref="statementInput" type="file" id="thumbnails" class="hidden">
+                            </div>
+                            <div class="flex items-center" :class="[error ? 'justify-between' : 'justify-end']">
+                              <span class="text-sm text-red-400 font-semibold">{{error}}</span>
+                              <div class="flex gap-x-2">
+                                <button 
+                                class="modalState-footer 
+                                modal-default-button 
+                                text-black/80 
+                                bg-secondary-yel-02 
+                                mt-4 px-4 py-2 
+                                rounded-[20px] 
+                                font-semibold" 
+                                @click="chooseImage">
+                                Add
+                              </button>
+
+                                <button 
+                                class="modalState-footer 
+                                modal-default-button 
+                                text-black/80 
+                                bg-secondary-yel-02 
+                                mt-4 px-4 py-2 
+                                rounded-[20px] 
+                                font-semibold" 
+                                @click="proseece">
+                                Next
+                              </button>
+                              </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>                
+                </transition>
+              </Teleport>
+
+              <Teleport to="body">
+
+                <transition name="modalDate">
+                    <div v-if="openDate" class="modalDate-mask">
+                        <div class="modalDate-container rounded-[10px] relative">
+                            <button @click="openDate = false" class="absolute left-[-16px] top-[-16px] group" type="button">
+                              <div class="w-8 h-8">
+                                <svg class="w-full h-full" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M6.2376 11.2624L8.5008 9ZM10.7632 6.7376L8.5008 9ZM8.5008 9L6.2376 6.7376ZM8.5008 9L10.7632 11.2624ZM8.5 17C12.9184 17 16.5 13.4184 16.5 9C16.5 4.5816 12.9184 1 8.5 1C4.0816 1 0.5 4.5816 0.5 9C0.5 13.4184 4.0816 17 8.5 17Z" class="fill-white/80 group-hover:fill-white/40 group-active:fill-white/60"/>
+                                  <path d="M6.2376 11.2624L8.5008 9M8.5008 9L10.7632 6.7376M8.5008 9L6.2376 6.7376M8.5008 9L10.7632 11.2624M8.5 17C12.9184 17 16.5 13.4184 16.5 9C16.5 4.5816 12.9184 1 8.5 1C4.0816 1 0.5 4.5816 0.5 9C0.5 13.4184 4.0816 17 8.5 17Z" class="stroke-black/60" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                              </div>
+                            </button>
+
+                            <div class="flex flex-col gap-y-2">
+                              <label for="date">Announce Date:</label>
+                              <input type="date" name="date" v-model="date" class="focus:outline-none border pl-2 py-1 rounded-[10px] text-primary text-black/80 focus:border-black/40">
+                            </div>
+                  
+                            <span v-if="error && !date" class="text-sm text-red-300">{{error}}</span>
+                            <button class="modalDate-footer modal-default-button text-black/80 bg-secondary-yel-02 mt-4 px-4 py-2 rounded-[20px] font-semibold" @click="sendState">Upload</button>
+                        </div>
+
+                    </div>                
+                </transition>
+
+              </Teleport>
+
+             
 
 
   <div 
@@ -2572,204 +1726,113 @@
   lg-laptop:w-[1020px] 
   lg-laptop:mx-auto">
 
-<div 
-class="flex 
-justify-between 
-tablet:justify-center 
-items-center 
-rounded-[10px] 
-">
-  <p class="
-  text-sm 
-  leading-[24px] 
-  font-medium 
-  mb-4 
-  text-primary-red-01/80 
-  mx-auto 
-  text-left
-  border-l-[3px]
-  border-primary-red-02
-  pl-4
-  flex-1
-  tablet:flex-none
-  laptop:text-primary">
-    We WILL KEEP YOU POSTED!
-  </p>
-  <div class="form mx-auto flex-1 tablet:w-1/4 max-w-[18.75rem] laptop:w-auto">
-
-    <form @submit.prevent="subscribed">
-
-      <input type="mail" name="email" placeholder="Email" class="text-sm 
-      text-black
-      border 
-      border-black/60 
-      rounded-[14.6px] 
-      px-2 
-      py-1
-      mb-4 
-      w-full 
-      h-full
-      placeholder-black/40
-      placeholder:font-bold
-      laptop:text-primary">
-
-      <button class="
-      text-sm
-      text-white
-      bg-fist
-      font-bold
-      w-full
-      py-1
-      mb-4
-      rounded-[9.78335rem]
-      active:bg-fist/80
-      laptop:text-primary" type="submit">Subscribe</button>
-
-    </form>
-    
-  </div>
-</div>
-
-</div>
-
-<div id="footer" 
-class="w-full 
-relative  
-px-4
-py-8
-gap-y-4 
-gap-x-4
-laptop:w-full
-laptop:h-[50vh]
-laptop:flex
-laptop:itmes-center
-">
-  <div class="text-center z-[100] relative tablet:hidden">
-    <p class="motteo inline-block relative text-white/80 text-primary laptop:text-lg font-semibold leading-[24px]">
-      INJURY TO ONE IS <br/>
-      INJURT TO ALL 
-    </p>
-  </div>
   <div 
   class="flex 
   justify-between 
-  mt-4 
-  tablet:mx-8 
-  tablet:justify-between 
-  lg-table:w-[840px] 
-  lg-table:mx-auto 
-  laptop:mx-auto 
-  lg-laptop:w-[1020px] 
-  lg-laptop:mx-auto
-  laptop:mt-0
-  laptop:w-[1200px]
-  laptop:items-center
+  tablet:justify-center 
+  items-center 
+  rounded-[10px] 
   ">
-    <div class="z-[100]">
-      <ul class="laptop:space-y-1">
-        <li> <a href="#" 
-          class="text-sm 
-          text-white 
-          border-l-[2px] 
-          border-white/80 
-          pl-2
-          laptop:text-primary">OUR STORY</a> </li>
-        <li><a href="#" class="laptop:text-primary text-sm text-white/80 border-l-[2px] border-white/80 pl-2 laptop:hover:text-white">BLOG</a></li>
-        <li><a href="#" class="laptop:text-primary text-sm text-white/80 border-l-[2px] border-white/80 pl-2 laptop:hover:text-white">UNION ACTIVITIES</a></li>
-        <li><a href="#" class="laptop:text-primary text-sm text-white/80 border-l-[2px] border-white/80 pl-2 laptop:hover:text-white">ADVOCATES</a></li>
-        <li><a href="#" class="laptop:text-primary text-sm text-white/80 border-l-[2px] border-white/80 pl-2 laptop:hover:text-white">WOMEN COMMITEE</a></li>
-      </ul>
+    <p class="
+    text-sm 
+    leading-[24px] 
+    font-medium 
+    mb-4 
+    text-primary-red-01/80 
+    mx-auto 
+    text-left
+    border-l-[3px]
+    border-primary-red-02
+    pl-4
+    flex-1
+    tablet:flex-none
+    laptop:text-primary">
+      We WILL KEEP YOU POSTED!
+    </p>
+    <div class="form mx-auto flex-1 tablet:w-1/4 max-w-[18.75rem] laptop:w-auto">
+
+      <form @submit.prevent="subscribed">
+
+        <input type="mail" name="email" placeholder="Email" class="text-sm 
+        text-black
+        border 
+        border-black/60 
+        rounded-[14.6px] 
+        px-2 
+        py-1
+        mb-4 
+        w-full 
+        h-full
+        placeholder-black/40
+        placeholder:font-bold
+        laptop:text-primary">
+
+        <button class="
+        text-sm
+        text-white
+        bg-fist
+        font-bold
+        w-full
+        py-1
+        mb-4
+        rounded-[9.78335rem]
+        active:bg-fist/80
+        laptop:text-primary" type="submit">Subscribe</button>
+
+      </form>
+      
     </div>
-
-      <div class="motteo text-center z-[100] hidden relative tablet:block tablet:self-center">
-        <p 
-
-        class="text-white/80 
-        text-lg 
-        font-semibold 
-        leading-[24px]">
-          INJURY TO ONE IS 
-          <br/>
-          INJURY TO ALL 
-        </p>
-
-      </div>
-
-    <div class="z-[100]">
-      <ul class="space-y-1">
-        <li class="text-sm laptop:text-primary text-white border-l-[2px] border-white/80 pl-2">CONTACT</li>
-        <li class="flex gap-x-1 items-center">
-          <div class="w-2 h-2">
-            <svg class="w-full h-full" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.91957 6.8114L5.88254 4.77421C5.83881 4.73097 5.78191 4.70356 5.72084 4.69632C5.65978 4.68907 5.59804 4.70241 5.54541 4.73421C5.17796 4.95653 4.90381 5.30482 4.77403 5.71423C4.70831 5.91995 4.46833 6.01424 4.28262 5.90281L4.27977 5.89995L4.27691 5.89709C3.38462 5.3619 2.6379 4.61512 2.10274 3.72276C2.10274 3.7199 2.09989 3.71705 2.09989 3.71705C1.98561 3.53133 2.07989 3.29132 2.28559 3.22561C2.69583 3.09742 3.04461 2.82285 3.26554 2.45416C3.33125 2.34559 3.31411 2.20844 3.22554 2.11701L1.18851 0.0798211C1.14478 0.0365828 1.08788 0.00917019 1.02681 0.00192471C0.965749 -0.00532078 0.904012 0.00801511 0.851382 0.0398202C0.602289 0.189276 0.394302 0.398378 0.246172 0.648274C0.098041 0.89817 0.0144234 1.181 0.00285698 1.47128V1.47414C-2.66078e-09 1.50271 0 1.53128 0 1.55985C0 1.59986 0.00285698 1.637 0.00571397 1.67414C0.0397129 2.80555 0.363343 3.90932 0.945663 4.87993C1.47992 5.77138 2.22845 6.51997 3.11983 7.05426L3.12269 7.05712C4.10549 7.64856 5.22543 7.97143 6.37108 7.99714C6.39394 7.99714 6.41679 8 6.43965 8H6.59964V7.99429C6.87738 7.97076 7.14563 7.88187 7.38247 7.73489C7.61931 7.58791 7.81804 7.387 7.96242 7.14855C8.02528 7.03998 8.00814 6.89997 7.91957 6.8114Z" fill="white" fill-opacity="0.8"/>
-            </svg>
-          </div>
-          <span class="laptop:text-sm text-x-sm text-white">+669-123-456-8</span>
-        </li>
-
-        <li class="flex gap-x-1 items-center">
-          <div class="w-2 h-2">
-            <svg class="w-full h-full" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.55556 0H0.444444C0.32657 0 0.213524 0.0468252 0.130175 0.130175C0.0468252 0.213524 0 0.32657 0 0.444444V7.55556C0 7.67343 0.0468252 7.78648 0.130175 7.86983C0.213524 7.95318 0.32657 8 0.444444 8H4.27333V4.90667H3.23422V3.69556H4.27333V2.80667C4.27333 1.77333 4.90444 1.21022 5.82889 1.21022C6.13956 1.20933 6.45067 1.22533 6.76 1.25778V2.33333H6.12222C5.62089 2.33333 5.52311 2.57244 5.52311 2.92222V3.69333H6.72178L6.56622 4.90444H5.52267V8H7.55556C7.67343 8 7.78648 7.95318 7.86983 7.86983C7.95318 7.78648 8 7.67343 8 7.55556V0.444444C8 0.32657 7.95318 0.213524 7.86983 0.130175C7.78648 0.0468252 7.67343 0 7.55556 0Z" fill="white" fill-opacity="0.8"/>
-            </svg>
-          </div>
-          <span class="laptop:text-sm text-x-sm text-white">FGWM.Facebook.Page</span>
-        </li>
-
-
-        <li class="flex gap-x-1 items-center">
-          <div class="w-2 h-2">
-            <svg class="w-full h-full" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 7V1C8 0.446667 7.68489 0 7.29453 0H0.705467C0.315109 0 0 0.446667 0 1V7C0 7.55333 0.315109 8 0.705467 8H7.29453C7.68489 8 8 7.55333 8 7ZM7.38389 0.926667C7.53909 1.14667 7.45444 1.37333 7.36978 1.48667L5.46032 3.96667L7.29453 6.67333C7.35097 6.76667 7.38859 6.91333 7.32275 7.01333C7.26161 7.12 7.12052 7.11333 7.05938 7.04667L5.00412 4.56L3.99765 5.86L2.99588 4.56L0.940623 7.04667C0.879483 7.11333 0.738389 7.12 0.677249 7.01333C0.611405 6.91333 0.64903 6.76667 0.705467 6.67333L2.53968 3.96667L0.630217 1.48667C0.545561 1.37333 0.460905 1.14667 0.616108 0.926667C0.771311 0.706667 0.931217 0.813333 1.0629 0.973333L3.99765 4.33333L6.9371 0.973333C7.06878 0.813333 7.22869 0.706667 7.38389 0.926667Z" fill="white" fill-opacity="0.8"/>
-            </svg>
-          </div>
-
-          <span class="laptop:text-sm text-x-sm text-white">fgwm.mail.prg</span>
-        </li>
-      </ul>
-    </div>  
   </div>
-
-  <div class="z-[100] absolute bottom-0 laptop:bottom-4 left-[50%] -translate-x-[50%] flex items-center justify-between">
-    <span class="text-white/80 text-x-sm">All</span>
-    <div class="w-2 h-2 mx-1">
-      <svg class="w-full h-full" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path stroke="white" stroke-opacity="0.8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 8.8181 18.7672 7.64778 18.3149 6.55585C17.8626 5.46392 17.1997 4.47177 16.364 3.63604C15.5282 2.80031 14.5361 2.13738 13.4442 1.68508C12.3522 1.23279 11.1819 1 10 1C8.8181 1 7.64778 1.23279 6.55585 1.68508C5.46392 2.13738 4.47177 2.80031 3.63604 3.63604C2.80031 4.47177 2.13738 5.46392 1.68508 6.55585C1.23279 7.64778 1 8.8181 1 10Z" />
-        <path stroke="white" stroke-opacity="0.8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 7.75004C11.4171 7.23777 10.6592 6.96989 9.88383 7.00211C9.10848 7.03434 8.37539 7.36417 7.837 7.92304C7.2994 8.48083 6.99902 9.22535 6.99902 10C6.99902 10.7747 7.2994 11.5192 7.837 12.077C8.37539 12.6359 9.10848 12.9657 9.88383 12.998C10.6592 13.0302 11.4171 12.7623 12 12.25" />
-      </svg>
-    </div>
-    <span class="text-white/80 text-x-sm">right reserved FGWM.org</span>
-  </div>
-  
 </div>
-
-
-
+<FooterComponentVue />
 
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
 import { useStatementStore } from '../sotre/statementStore';
 import { useBreakPoints } from '../composible/useBreakPoints.js';
-
-
+import CoverComponentVue from './CoverComponent.vue';
+import FooterComponentVue from './FooterCOmponent.vue';
+import { useArticleStore } from '../sotre/articleStore';
+import { useUserStore } from '../sotre/userStore';
 
 const statementStore = useStatementStore();
+const articleStore = useArticleStore();
+const userStore = useUserStore();
+const protestImages = ref([]);
+const activitiesImages = ref([]);
+const articlesImages = ref([]);
+const statementImg = ref([]);
+const date = ref();
+const open = ref(false);
+const openDate = ref(false);
 const router = useRouter();
 const page = ref();
 const cur_page = ref(1);
-function navigate(link) {
+const error = ref("");
+const statementInput = ref(null);
+const thumbnails = ref([]);
+const currentThumb= ref('');
+const id = ref('');
+
+function navigate(link, id, type) {
   router.push({
-    name : link
+    name : link,
+    params : {
+      id : id,
+      type : type
+    }
   });
-  // console.log(link);
+
+  articleStore.chooseArticle(id, type);
 }
 
- const {type} = useBreakPoints();
+const {type} = useBreakPoints();
+
  
-onMounted(() => {
+onMounted(async () => {
 
   if (type.value === 'phone') {
     page.value = 1;
@@ -2778,14 +1841,198 @@ onMounted(() => {
   } else if (type.value === 'lg-tablet') {
     page.value = 3;
   } else if (type.value === 'desktop') {
-    page.value = 4;
+    page.value = 6;
   } else {
-    page.value = 4;
+    page.value = 6;
   }
-  statementStore.getStatements(page.value, cur_page.value);
 
   
+  statementStore.getStatements(page.value, cur_page.value);
+  
+
+
+
 })
+
+onBeforeMount(async () => {
+
+  if(!articleStore.protest.length) {
+    await articleStore.fetchProtest('protest');
+  }
+
+  if(!articleStore.camgpains.length) {
+    await articleStore.fetchProtest('activities');
+  }
+
+  if(!articleStore.articles.length) {
+    await articleStore.fetchProtest('articles');
+  }
+  
+  const portestimagesLoadPromises =  articleStore.protest.map(protest => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const isProtrait = (img.width / img.height) < 1;
+        protestImages.value.push({
+          url : img.src,
+          isProtrait : isProtrait,
+          title : protest.title,
+          date : protest.date,
+          id : protest.id
+        });
+        resolve();
+      };
+      img.src = protest.imgURL;
+    });
+  });
+
+  await Promise.all(portestimagesLoadPromises);
+
+  const activitiesimagesLoadPromises =  articleStore.camgpains.map(camg => {
+    
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const isProtrait = (img.width / img.height) < 1;
+        activitiesImages.value.push({
+          url : img.src,
+          isProtrait : isProtrait,
+          title : camg.title,
+          date : camg.date,
+          id : camg.id
+        });
+        resolve();
+      };
+      img.src = camg.imgURL;
+    });
+  });
+
+  await Promise.all(activitiesimagesLoadPromises);
+
+
+  const articlesimagesLoadPromises =  articleStore.articles.map(art => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => {
+        const isProtrait = (img.width / img.height) < 1;
+        articlesImages.value.push({
+          url : img.src,
+          isProtrait : isProtrait,
+          title : art.title,
+          date : art.date,
+          id : art.id
+        });
+        resolve();
+      };
+      img.src = art.imgURL;
+    });
+  });
+
+  await Promise.all(articlesimagesLoadPromises);
+
+
+})
+
+function deleteStatement(id) {
+  statementStore.deleteStatement(id).then(res => {
+    if (!statementStore.statement.length) {
+      statementStore.getStatements(page.value);
+    }
+    return res;
+  })
+}
+
+function closeModel() {
+
+  open.value = false;
+  openDate.value = false;
+  date.value = "";
+  statementImg.value = [];
+  thumbnails.value = [];
+  currentThumb.value = '';
+  
+}
+
+
+function proseece() {
+
+  if(statementImg.value) {
+    open.value = false;
+    openDate.value = true;
+  } else {
+    error.value = 'Statement image required!';
+  }
+
+}
+
+function sendState() {
+  if (date.value && statementImg.value) {
+    const formData = new FormData();
+    error.value = "";
+
+    const files = statementImg.value;
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append('image[]', files[i]);
+    }
+
+    formData.append('date', date.value);
+    
+    statementStore.sendStatement(formData).then(res => {
+
+      statementStore.getStatements(page.value, cur_page.value);
+      closeModel();
+      statementImg.value = [];
+      date.value = '';
+      return res;
+    })
+  }
+}
+
+function chooseImage () {
+    statementInput.value.click();
+}
+
+function removeStateThumb(index) {
+  statementImg.value.splice(index, 1);
+  thumbnails.value.splice(index, 1);
+  currentThumb.value = thumbnails.value[index - 1] || '';
+}
+
+function getCurrentThumbnail(i) {
+  if(thumbnails.value[i]) {
+    currentThumb.value = thumbnails.value[i];
+  } else {
+    currentThumb.value = "";
+  }
+
+  id.value = i;
+}
+
+function onSelectFile() {
+
+const input = statementInput.value;
+const files = input.files;
+if(files && files[0]) {
+    for(let i = 0; i < files.length; i++) {
+        statementImg.value.push(files[i]);
+        const reader = new FileReader();
+        const img = new Image();
+        reader.onload = (e) => {
+            img.src = e.target.result;
+            img.onload = () => {
+                thumbnails.value.push(img.src);
+                currentThumb.value = img.src;
+                id.value = thumbnails.value.length;
+                
+            }
+        }
+        reader.readAsDataURL(files[i]);
+    }
+}
+
+}
+
 </script>
 
 <style>
@@ -2847,32 +2094,6 @@ shape-outside: url(../assets/fist-path.svg);
   }
 }
 
-#footer::before {
-  content : "";
-  position : absolute;
-  top : 0;
-  left : 0;
-  width : 100%;
-  height : 100%;
-  z-index : 0;
-  background-image: url('../assets/cover02_retouch02.jpg');
-  background-size:cover;
-  background-repeat: no-repeat;
-  
-}
-
-#footer::after {
-  content : "";
-  position : absolute;
-  top : 0;
-  left : 0;
-  width : 100%;
-  height : 100%;
-  z-index: 10;
-  background-color: rgba(0,0,0,0.8);
-  
-}
-
 .motteo::before {
 
   content : " ";
@@ -2901,6 +2122,62 @@ background-repeat: no-repeat;
 background-position: center;
 z-index: 100;
 
+}
+
+.modalState-mask,.modalDate-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  transition: opacity 0.3s ease;
+}
+
+.modalState-container,
+.modalDate-container {
+  
+  margin: auto;
+  padding: 20px 30px;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.modalState-header h3,
+.modalDate-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+/* .modal-body {
+  margin: 20px 0;
+} */
+
+.modalState-default-button,
+.modalDate-default-button {
+  float: right;
+}
+
+.modalState-enter-from,
+.modalDate-enter-from {
+  opacity: 0;
+}
+
+.modalState-leave-to,
+.modalDate-leave-to  {
+  opacity: 0;
+}
+
+.modalState-enter-from .modalState-container,
+.modalState-leave-to .modalState-container,
+.modalDate-enter-from .modalDate-container,
+.modalDate-leave-to .modalDate-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 </style>
